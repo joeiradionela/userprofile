@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// src/App.js
+import React, { useState } from 'react';
+import { View, ScrollView } from 'react-native';
+import ImageTile from './src/components/ImageTile';
+import Profile from './src/components/Profile';
+import Account from './src/components/Account';
+import Preferences from './src/components/Preferences';
+import LogButton from './src/components/LogoutButton';
+import componentStyles from './src/style/componentStyles'; // Import your component styles
 
-export default function App() {
+const App = () => {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(previousState => !previousState);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={[{ flex: 1 }, darkMode ? { backgroundColor: '#333' } : { backgroundColor: '#fff' }]}>
+      <ScrollView >
+        <ImageTile />
+        <Profile darkMode={darkMode} />
+        <Account />
+        <Preferences darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+        <LogButton />
+      </ScrollView>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
